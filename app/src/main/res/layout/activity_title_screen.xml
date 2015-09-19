@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Mobile Mafia"
+            android:text="@string/title_screen_title"
             android:id="@+id/titleText"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -25,7 +25,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Start"
+            android:text="@string/start_button"
             android:id="@+id/buttonStart"
             android:layout_marginBottom="136dp"
             android:layout_alignParentBottom="true"
@@ -34,7 +34,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Rules"
+            android:text="@string/rules_button"
             android:id="@+id/buttonRules"
             android:layout_marginBottom="51dp"
             android:layout_alignParentBottom="true"
@@ -43,7 +43,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="@string/login_button"
             android:id="@+id/buttonLogin"
             android:layout_alignTop="@+id/buttonRules"
             android:layout_alignEnd="@+id/titleText" />

@@ -8,18 +8,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class HostLobby extends AppCompatActivity {
+public class DaytimeActivity extends AppCompatActivity {
 
-    Button btnBack, btnStart;
-
+    Button btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_host_lobby);
+        setContentView(R.layout.activity_daytime);
 
-        btnBack = (Button) findViewById(R.id.buttonHostLobbyBack);
-        btnStart = (Button) findViewById(R.id.buttonHostLobbyStart);
+        btnBack = (Button) findViewById(R.id.buttonPlayerListBack);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,20 +26,12 @@ public class HostLobby extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        btnStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PlayerList.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_host_lobby, menu);
+        getMenuInflater().inflate(R.menu.menu_daytime, menu);
         return true;
     }
 
