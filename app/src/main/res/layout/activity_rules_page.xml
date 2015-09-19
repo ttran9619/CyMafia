@@ -24,4 +24,50 @@
         android:id="@+id/textView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Transform"
+        android:id="@+id/buttonTransform"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/textTitle"
+        android:layout_marginBottom="60dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textP1"
+        android:layout_below="@+id/textView"
+        android:layout_alignEnd="@+id/textTitle"
+        android:layout_marginTop="54dp"
+        android:layout_toEndOf="@+id/buttonTransform"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textP2"
+        android:textSize="25dp"
+        android:layout_above="@+id/buttonTransform"
+        android:layout_toEndOf="@+id/buttonTransform" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Read"
+        android:id="@+id/buttonTransformRead"
+        android:layout_below="@+id/textP2"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Small Text"
+        android:id="@+id/textDebug"
+        android:layout_below="@+id/textTitle"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

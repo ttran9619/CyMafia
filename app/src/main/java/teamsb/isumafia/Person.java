@@ -2,10 +2,12 @@ package teamsb.isumafia;
 
 import android.content.Context;
 
+import java.io.Serializable;
+
 /**
  * Created by enclark on 9/18/2015.
  */
-public abstract class Person {
+public abstract class Person implements Serializable {
 
     private boolean alive;
     private String name;
