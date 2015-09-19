@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.ImageView;
 
 public class TitleScreen extends AppCompatActivity {
 
@@ -16,6 +17,9 @@ public class TitleScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title_screen);
+
+
+        ImageView logo = (ImageView) findViewById(R.id.imageTitleLogo);
 
         btnHost = (Button) findViewById(R.id.buttonStart);
         btnLogin = (Button) findViewById(R.id.buttonLogin);
