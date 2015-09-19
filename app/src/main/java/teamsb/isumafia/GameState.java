@@ -7,17 +7,35 @@ import java.util.ArrayList;
  */
 public class GameState {
 
-    public static ArrayList<Person> People;
+    public ArrayList<Person> People;
 
-    public static boolean timeDayNight; //0 == day, 1 == night
-    public static boolean mafiaWin;
-    public static boolean citizenWin;
+    public boolean timeDayNight; //0 == day, 1 == night
+    public boolean mafiaWin;
+    public boolean citizenWin;
 
     // For Testing, please ignore
     public static byte[] transformHolder;
     public static Person dave2;
 
 
+    public GameState(){
+        ArrayList<Person> People = new ArrayList<Person>();
+        timeDayNight = false;
+        mafiaWin = false;
+        citizenWin = false;
+    }
+
+    public GameState(GameState old){
+        this.timeDayNight=old.timeDayNight;
+        this.mafiaWin=old.mafiaWin;
+        this.citizenWin=old.citizenWin;
+
+        int i=0;
+        for(Person peep : old.People){
+            this.People.set(i,old.People.get(i));
+            ++i;
+        }
+    }
 
 
 

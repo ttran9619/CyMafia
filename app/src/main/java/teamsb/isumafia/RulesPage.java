@@ -28,7 +28,6 @@ public class RulesPage extends AppCompatActivity implements Serializable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rules_page);
 
-
         global.transformHolder = new byte[100000];
         global.dave2 = new Mafia("Mike");
 

@@ -18,7 +18,7 @@ public abstract class Person implements Serializable {
 
     protected Person(String name) // Probably pass a player's ID and Google name to it
     {
-        this.name = name;
+        this.name = new String(name);
         won = false;
         alive = true;
         marked = false;
@@ -26,6 +26,14 @@ public abstract class Person implements Serializable {
         //TODO
     }
 
+    protected Person(Person old){
+        this.name = new String(old.name);
+        this.won = old.won;
+        this.alive = old.alive;
+        this.marked = old.marked;
+        this.saved = old.saved;
+
+    }
     // To be implemented by the classes, because they will all be different
     protected abstract Role who();
 
