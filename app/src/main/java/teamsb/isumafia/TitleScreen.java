@@ -9,6 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+
 public class TitleScreen extends AppCompatActivity {
 
     Button btnHost, btnLogin, btnRules;
@@ -18,10 +26,12 @@ public class TitleScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_title_screen);
 
-
         ImageView logo = (ImageView) findViewById(R.id.imageTitleLogo);
 
-        GameState GS = new GameState();
+        final GameState GS = new GameState();
+
+        GS.citizenWin = true;
+        GS.TEST = "MEEP";
 
 
         btnHost = (Button) findViewById(R.id.buttonStart);
@@ -34,8 +44,7 @@ public class TitleScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), HostLobby.class);
-
-
+                intent.putExtra("GS", GS);
                 startActivity(intent);
             }
         });
@@ -81,4 +90,22 @@ public class TitleScreen extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private byte[] convertToBytes(Object object) throws IOException {
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
+             ObjectOutput out = new ObjectOutputStream(bos)) {
+            out.writeObject(object);
+            return bos.toByteArray();
+        }
+    }
+
+    private Object convertFromBytes(byte[] bytes) throws IOException, ClassNotFoundException {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+             ObjectInput in = new ObjectInputStream(bis)) {
+            return in.readObject();
+        }
+    }
+
+
+
 }
