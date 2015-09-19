@@ -21,6 +21,7 @@ public class TitleScreen extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.buttonLogin);
         btnRules = (Button) findViewById(R.id.buttonRules);
 
+        // Button to the Host Lobby Screen
         btnHost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -29,6 +30,7 @@ public class TitleScreen extends AppCompatActivity {
             }
         });
 
+        // Button to the Rules Page
         btnRules.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,6 +39,7 @@ public class TitleScreen extends AppCompatActivity {
             }
         });
 
+        // Button to the Login Page TODO
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
