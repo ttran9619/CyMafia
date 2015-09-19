@@ -37,6 +37,11 @@ public class GameState {
         }
     }
 
+    public ArrayList<Person> getArray(){
+        return People;
+    }
+
+
 
 
 

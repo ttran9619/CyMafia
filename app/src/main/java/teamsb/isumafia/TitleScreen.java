@@ -1,14 +1,13 @@
 package teamsb.isumafia;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.content.Intent;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 public class TitleScreen extends AppCompatActivity {
 
@@ -22,6 +21,9 @@ public class TitleScreen extends AppCompatActivity {
 
         ImageView logo = (ImageView) findViewById(R.id.imageTitleLogo);
 
+        GameState GS = new GameState();
+
+
         btnHost = (Button) findViewById(R.id.buttonStart);
         btnLogin = (Button) findViewById(R.id.buttonLogin);
         btnRules = (Button) findViewById(R.id.buttonRules);
@@ -32,6 +34,8 @@ public class TitleScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), HostLobby.class);
+
+
                 startActivity(intent);
             }
         });
