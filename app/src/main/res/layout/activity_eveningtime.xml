@@ -6,7 +6,20 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="teamsb.isumafia.EveningtimeActivity">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
 
+        <TextView
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/envening_title"
+            android:id="@+id/textEveningTitle"
+            android:layout_gravity="center_horizontal|top"
+            android:textSize="50dp"
+            android:textAlignment="center" />
+    </FrameLayout>
 </RelativeLayout>
