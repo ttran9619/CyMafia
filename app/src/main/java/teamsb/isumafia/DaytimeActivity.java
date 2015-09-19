@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -19,6 +20,7 @@ import java.io.ObjectOutputStream;
 public class DaytimeActivity extends AppCompatActivity {
 
     Button btnBack;
+    Person[] people = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,50 @@ public class DaytimeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_daytime);
 
         btnBack = (Button) findViewById(R.id.buttonDaytimeBack);
+
+        //These two objects allow us to locate who the nurse wants to save, and who the mafia wants
+        //to kill
+        Person wantToProtect = null;
+        Person wantToKill = null;
+        int maxVote = 0;
+        Person popular = null;
+        for(int i = 0; i < people.length; i += 1)
+        {
+
+            //After we find the two people, we will unsave/unmark them so they are not
+            if(people[i].getSaved())
+            {
+                wantToProtect = people[i];
+                people[i].unSave();
+            }
+            if(people[i].getMarked())
+            {
+                wantToKill = people[i];
+                people[i].unMark();
+            }
+            if (people[i].getVote() > maxVote)
+            {
+                maxVote = people[i].getVote();
+                popular = people[i];
+            }
+            if(people[i].getVote() == maxVote)
+            people[i].voteReset();
+        }
+        int duration = Toast.LENGTH_LONG;
+        String text;
+        Toast toast;
+        //This sends a toast to notify if someone dies
+        if( (wantToKill != null) && wantToProtect == wantToKill)
+        {
+            text = "The nurse was successful; no one died last night";
+            toast = Toast.makeText(getApplicationContext(), text, duration);
+        }
+        else if(wantToKill != null)
+        {
+            text = wantToKill + "died last night";
+            toast = Toast.makeText(getApplicationContext(), text, duration);
+            wantToKill.kill();
+        }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

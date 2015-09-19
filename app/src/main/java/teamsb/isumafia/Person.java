@@ -9,16 +9,20 @@ import java.io.Serializable;
  */
 public abstract class Person implements Serializable {
 
+    private boolean won;
     private boolean alive;
     private String name;
-    //private boolean marked;
-    //private boolean protected;
+    private boolean marked;
+    private boolean saved;
+    private int vote;
+
     protected Person(String name) // Probably pass a player's ID and Google name to it
     {
         this.name = name;
+        won = false;
         alive = true;
-        //marked = false;
-        //protected = false;
+        marked = false;
+        saved = false;
         //TODO
     }
 
@@ -47,15 +51,64 @@ public abstract class Person implements Serializable {
         return name;
     }
 
-//    public void markForKill()
-//    {
-//        marked = true;
-//    }
+    //Returns the status of if they won or lost to give them the correct message at the end
+    public boolean won()
+    {
+        return won;
+    }
 
-//    public void protect()
-//    {
-//        protected = true;
-//    }
+    //This identifies the person who the mafia wants to kill
+    public void markForKill()
+    {
+        marked = true;
+    }
 
+    //this identifies the person who the mafia wants to save
+    public void save()
+    {
+        saved = true;
+    }
+
+    //This returns whether the person is saved
+    public boolean getSaved()
+    {
+        return saved;
+    }
+
+    //This returns if the person is marked
+    public boolean getMarked()
+    {
+        return marked;
+    }
+
+    //This resets the marked variable
+    public void unMark()
+    {
+        marked = false;
+    }
+
+    //This resets the saved variable
+    public void unSave()
+    {
+        saved = false;
+    }
+
+    //This indicates how many votes a person got to kill us
+    public void vote()
+    {
+        vote += 1;
+    }
+
+    //This returns the vote so we can compare how many votes each person received
+    public int getVote()
+    {
+        return vote;
+    }
+
+    //Resets the vote count
+    public void voteReset()
+    {
+        vote = 0;
+    }
 
 }

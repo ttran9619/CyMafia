@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class TitleScreen extends AppCompatActivity {
 
@@ -24,6 +25,7 @@ public class TitleScreen extends AppCompatActivity {
         btnHost = (Button) findViewById(R.id.buttonStart);
         btnLogin = (Button) findViewById(R.id.buttonLogin);
         btnRules = (Button) findViewById(R.id.buttonRules);
+
 
         // Button to the Host Lobby Screen
         btnHost.setOnClickListener(new View.OnClickListener() {
