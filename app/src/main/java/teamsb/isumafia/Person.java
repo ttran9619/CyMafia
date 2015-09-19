@@ -15,6 +15,7 @@ public abstract class Person implements Serializable {
     private boolean marked;
     private boolean saved;
     private int vote;
+    protected GameState gs = null;
 
     protected Person(String name) // Probably pass a player's ID and Google name to it
     {

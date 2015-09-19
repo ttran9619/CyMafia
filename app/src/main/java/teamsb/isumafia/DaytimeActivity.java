@@ -29,6 +29,21 @@ public class DaytimeActivity extends AppCompatActivity {
 
         btnBack = (Button) findViewById(R.id.buttonDaytimeBack);
 
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), TitleScreen.class);
+                startActivity(intent);
+            }
+        });
+
+
+    }
+
+    //At the beginning of each new round, this method will be called to kill a player
+    private void killPerson()
+    {
         //These two objects allow us to locate who the nurse wants to save, and who the mafia wants
         //to kill
         Person wantToProtect = null;
@@ -55,6 +70,9 @@ public class DaytimeActivity extends AppCompatActivity {
                 popular = people[i];
             }
             if(people[i].getVote() == maxVote)
+            {
+                popular = null;
+            }
             people[i].voteReset();
         }
         int duration = Toast.LENGTH_LONG;
@@ -68,19 +86,21 @@ public class DaytimeActivity extends AppCompatActivity {
         }
         else if(wantToKill != null)
         {
-            text = wantToKill + "died last night";
+            text = wantToKill.getName() + "died last night";
             toast = Toast.makeText(getApplicationContext(), text, duration);
             wantToKill.kill();
         }
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), TitleScreen.class);
-                startActivity(intent);
-            }
-        });
-
+        else if((popular != null) && wantToKill == null)
+        {
+            text = popular.getName() + "died last night";
+            toast = Toast.makeText(getApplicationContext(), text, duration);
+            popular.kill();
+        }
+        else
+        {
+            text = "No one died";
+            toast = Toast.makeText(getApplicationContext(), text, duration);
+        }
 
     }
 

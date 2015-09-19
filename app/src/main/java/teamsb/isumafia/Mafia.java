@@ -24,12 +24,23 @@ public class Mafia extends Person {
     public void doJob(Context context, Person person)
     {
         //TODO
-        person.markForKill();
+        if(gs.timeDayNight)
+        {
+            person.vote();
+            int duration = Toast.LENGTH_LONG;
+            String text = "You have voted to kill " + person.getName();
+            Toast toast = Toast.makeText(context, text, duration);
+        }
+        else
+        {
+            person.markForKill();
 
-        //A person will be marked for death, then the toast will confirm that the mafia member is done
-        int duration = Toast.LENGTH_LONG;
-        String text = "You have marked " + person.getName() + "for death";
-        Toast toast = Toast.makeText(context, text, duration);
+            //A person will be marked for death, then the toast will confirm that the mafia member is done
+            int duration = Toast.LENGTH_LONG;
+            String text = "You have marked " + person.getName() + "for death";
+            Toast toast = Toast.makeText(context, text, duration);
+        }
+
     }
 
 }
