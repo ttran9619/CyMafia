@@ -21,6 +21,7 @@
     <string name="login_button">Login</string>
     <string name="back_button">Back</string>
     <string name="start_button">Start</string>
+    <string name="title_activity_game_over_page">GameOverPage</string>
 
 
 </resources>

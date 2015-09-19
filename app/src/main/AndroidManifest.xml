@@ -52,6 +52,10 @@
             android:name=".DaytimeActivity"
             android:label="@string/title_activity_daytime" >
         </activity>
+        <activity
+            android:name=".GameOverPage"
+            android:label="@string/title_activity_game_over_page" >
+        </activity>
     </application>
 
 </manifest>
