@@ -11,6 +11,9 @@ public class global {
 
     public static Person dave2;
 
+    public static boolean mafiaWin;
+
+    public static boolean citizenWin;
 
 
 
