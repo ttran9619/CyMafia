@@ -45,12 +45,12 @@
             android:label="@string/title_activity_player_list" >
         </activity>
         <activity
-            android:name=".DaytimeActivity"
-            android:label="@string/title_activity_daytime" >
-        </activity>
-        <activity
             android:name=".EveningtimeActivity"
             android:label="@string/title_activity_eveningtime" >
+        </activity>
+        <activity
+            android:name=".DaytimeActivity"
+            android:label="@string/title_activity_daytime" >
         </activity>
     </application>
 

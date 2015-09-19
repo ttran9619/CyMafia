@@ -17,7 +17,7 @@ public class DaytimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daytime);
 
-        btnBack = (Button) findViewById(R.id.buttonPlayerListBack);
+        btnBack = (Button) findViewById(R.id.buttonDaytimeBack);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -26,6 +26,8 @@ public class DaytimeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     @Override
