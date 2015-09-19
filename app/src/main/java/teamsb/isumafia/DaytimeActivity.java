@@ -27,6 +27,12 @@ public class DaytimeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daytime);
 
+        //Passed in the GameState from the Title Screen
+        Intent intentStarted = getIntent();
+        GameState GS = (GameState) intentStarted.getSerializableExtra("PassedGameState");
+
+
+
         btnBack = (Button) findViewById(R.id.buttonDaytimeBack);
 
 

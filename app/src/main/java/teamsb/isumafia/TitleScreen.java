@@ -30,7 +30,6 @@ public class TitleScreen extends AppCompatActivity {
 
         final GameState GS = new GameState();
 
-        GS.citizenWin = true;
         GS.TEST = "MEEP";
 
 
@@ -43,8 +42,8 @@ public class TitleScreen extends AppCompatActivity {
         btnHost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), HostLobby.class);
-                intent.putExtra("GS", GS);
+                Intent intent = new Intent(v.getContext(), DaytimeActivity.class);
+                intent.putExtra("PassedGameState", GS);
                 startActivity(intent);
             }
         });
