@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Player"
+    android:id="@+id/player"
+    android:layout_weight="2"
+    android:textSize="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

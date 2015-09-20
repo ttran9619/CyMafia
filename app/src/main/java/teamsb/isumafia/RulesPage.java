@@ -16,9 +16,9 @@ public class RulesPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rules_page);
-
+        
         btnBack = (Button) findViewById(R.id.buttonRulesBack);
-
+        
         // Button to the Title Screen Screen
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

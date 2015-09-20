@@ -45,6 +45,10 @@ public class Nurse extends Person{
         else
         {
             person.save();
+<<<<<<< HEAD
+=======
+            //TODO
+>>>>>>> origin/BraveNewBranch
 
             //A person will be protected, then the toast will confirm that the mafia member is done
             int duration = Toast.LENGTH_LONG;
