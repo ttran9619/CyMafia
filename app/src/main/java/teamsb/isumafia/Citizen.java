@@ -25,10 +25,21 @@ public class Citizen extends Person{
     {
         if(gs.timeDayNight)
         {
-            person.vote();
+            //Their vote only counts if they are alive
             int duration = Toast.LENGTH_LONG;
-            String text = "You have voted to kill " + person.getName();
+            String text;
+            if(isAlive())
+            {
+                //If it is day, their job is to vote for a person
+                person.vote();
+                duration = Toast.LENGTH_LONG;
+                text = "You have voted to kill " + person.getName();
+            }else
+            {
+                text = "Thank you for passing your turn";
+            }
             Toast toast = Toast.makeText(context, text, duration);
+
         }
         else
         {
