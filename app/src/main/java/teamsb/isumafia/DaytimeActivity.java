@@ -140,7 +140,7 @@ public class DaytimeActivity extends BaseGameActivity {
     }
 
     //At the beginning of each new round, this method will be called to kill a player
-    private void killPerson()
+    private void killPerson(GameState GS)
     {
         //These two objects allow us to locate who the nurse wants to save, and who the mafia wants
         //to kill
@@ -193,14 +193,35 @@ public class DaytimeActivity extends BaseGameActivity {
             text = popular.getName() + "died last night";
             toast = Toast.makeText(getApplicationContext(), text, duration);
             popular.kill();
+            if(popular.who() == Role.MAFIA)
+            {
+                GS.citizenWin = true;
+            }
         }
         else
         {
             text = "No one died";
             toast = Toast.makeText(getApplicationContext(), text, duration);
         }
+        cleanNames(GS);
+        if(names.length <= 2 && !GS.citizenWin)
+        {
+            GS.mafiaWin = true;
+        }
+        anyoneWon(GS);
 
     }
+
+    private void anyoneWon(GameState GS)
+    {
+        if(GS.mafiaWin || GS.citizenWin)
+        {
+            Intent intent = new Intent(getApplicationContext(), DaytimeActivity.class);
+            intent.putExtra("PassedGameState", GS);
+            startActivity(intent);
+        }
+    }
+
 
     private byte[] convertToBytes(Object object) throws IOException {
         try (ByteArrayOutputStream bos = new ByteArrayOutputStream();
