@@ -24,7 +24,7 @@ public class Mafia extends Person {
     public void doJob(Context context, Person person)
     {
         //TODO
-        if(GS.timeDayNight)
+        if(GS.timeDayNight && isAlive())
         {
             //during the day, everyone votes
             person.vote();
@@ -32,13 +32,19 @@ public class Mafia extends Person {
             String text = "You have voted to kill " + person.getName();
             Toast toast = Toast.makeText(context, text, duration);
         }
-        else
+        else if(!GS.timeDayNight && isAlive())
         {
             person.markForKill();
 
             //A person will be marked for death, then the toast will confirm that the mafia member is done
             int duration = Toast.LENGTH_LONG;
             String text = "You have marked " + person.getName() + "for death";
+            Toast toast = Toast.makeText(context, text, duration);
+        }
+        else
+        {
+            int duration = Toast.LENGTH_LONG;
+            String text = "Thank you for passing turn";
             Toast toast = Toast.makeText(context, text, duration);
         }
 

@@ -24,7 +24,7 @@ public class Nurse extends Person{
     public void doJob(Context context,Person person)
     {
         //Assuming that day will be the variable
-        if(GS.timeDayNight)
+        if(GS.timeDayNight && isAlive())
         {
             //If it is day, their job is to vote for a person
             person.vote();
@@ -33,7 +33,7 @@ public class Nurse extends Person{
             Toast toast = Toast.makeText(context, text, duration);
 
         }
-        else
+        else if(!GS.timeDayNight && isAlive())
         {
             person.save();
             //TODO
@@ -41,6 +41,12 @@ public class Nurse extends Person{
             //A person will be protected, then the toast will confirm that the mafia member is done
             int duration = Toast.LENGTH_LONG;
             String text = "You have marked " + person.getName() + "for death";
+            Toast toast = Toast.makeText(context, text, duration);
+        }
+        else
+        {
+            int duration = Toast.LENGTH_LONG;
+            String text = "Thank you for passing turn";
             Toast toast = Toast.makeText(context, text, duration);
         }
     }

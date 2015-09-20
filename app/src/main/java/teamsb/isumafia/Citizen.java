@@ -23,7 +23,7 @@ public class Citizen extends Person{
     //This is the job of the citizen
     public void doJob(Context context, Person person)
     {
-        if(GS.timeDayNight)
+        if(GS.timeDayNight && isAlive())
         {
             person.vote();
             int duration = Toast.LENGTH_LONG;
