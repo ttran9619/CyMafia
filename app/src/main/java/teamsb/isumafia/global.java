@@ -1,5 +1,7 @@
 package teamsb.isumafia;
 
+import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
+
 /**
  * Created by Tyler on 9/19/2015.
  */
@@ -15,6 +17,9 @@ public class global {
 
     public static boolean citizenWin;
 
+    public static TurnBasedMatch match;
+
+    public static byte[] data;
 
 
 

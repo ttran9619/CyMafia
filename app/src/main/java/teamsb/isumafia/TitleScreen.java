@@ -31,7 +31,7 @@ public class TitleScreen extends BaseGameActivity {
     Button btnHost, btnLogin, btnRules;
     public static ArrayList<String> peeps = new ArrayList<String>();
     public static byte[] bytes = null;
-    private static GameState gameState = null;
+    public static GameState gameState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +40,9 @@ public class TitleScreen extends BaseGameActivity {
 
         ImageView logo = (ImageView) findViewById(R.id.imageTitleLogo);
 
-        final GameState GS = new GameState();
+//        final GameState GS = new GameState();
 
-        GS.TEST = "MEEP";
+//        GS.TEST = "MEEP";
 
 
         btnHost = (Button) findViewById(R.id.buttonStart);
@@ -128,13 +128,13 @@ public class TitleScreen extends BaseGameActivity {
         }
         gameState.populate(ids, names);
 
-//        byte[] data = null;
-//        try {
-//            data = convertToBytes(state);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        bytes = data;
+        byte[] data = null;
+        try {
+            data = convertToBytes(gameState);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        global.data = data;
     }
 
 
