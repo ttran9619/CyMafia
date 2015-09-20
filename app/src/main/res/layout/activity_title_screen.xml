@@ -11,9 +11,18 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
+        <ImageView
+            android:layout_width="362dp"
+            android:layout_height="493dp"
+            android:id="@+id/imageTitleLogo"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_gravity="center_horizontal|top"
+            android:src="@mipmap/title_image" />
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="123dp"
+            android:layout_height="242dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal|bottom">
@@ -42,27 +51,6 @@
                 android:layout_alignTop="@+id/buttonLogin"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
-
-        <ImageView
-            android:layout_width="362dp"
-            android:layout_height="493dp"
-            android:id="@+id/imageTitleLogo"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_gravity="center"
-            android:src="@mipmap/title_image" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/title_screen_title"
-            android:id="@+id/titleText"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="29dp"
-            android:textSize="55dp"
-            android:layout_gravity="center_horizontal|top" />
 
     </FrameLayout>
 </RelativeLayout>
