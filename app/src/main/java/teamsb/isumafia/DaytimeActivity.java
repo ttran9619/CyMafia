@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
 
 import java.io.ByteArrayInputStream;
@@ -38,7 +40,8 @@ public class DaytimeActivity extends BaseGameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daytime);
 
-
+//        GoogleApiClient googleApiClient = getApiClient();
+//        Games.Players.getCurrentPlayerId(googleApiClient);
 
         //Passed in the GameState from the Title Screen
         Intent intentStarted = getIntent();
