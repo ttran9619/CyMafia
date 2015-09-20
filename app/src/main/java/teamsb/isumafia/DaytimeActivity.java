@@ -41,7 +41,12 @@ public class DaytimeActivity extends AppCompatActivity {
         GameState GS = (GameState) intentStarted.getSerializableExtra("PassedGameState");
 
         //TESTING
-        names = new String[]{"Mark","Luke","John"};
+        //names = new String[]{"Mark","Luke","John"};
+        names = new String[GS.getArray().size()];
+        for(int i = 0; i < GS.getArray().size(); i += 1)
+        {
+            names[i] = new String(GS.getArray().get(i).getName());
+        }
 
 
         // Creating the list and the list adapter
@@ -68,6 +73,8 @@ public class DaytimeActivity extends AppCompatActivity {
                 // ListView Clicked item value
                 String  itemValue    = (String)  playerList.getItemAtPosition(position);
 
+                //GoogleApiClient.getCurrentPlayerId(client);
+
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
                         "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
@@ -87,6 +94,45 @@ public class DaytimeActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    //Makes sure that the names are only the alive members
+    private void cleanNames(GameState GS) {
+        names = null;
+        //Counts the number of players left in the game
+        int alive = 0;
+        for (int i = 0; i < GS.getArray().size(); i += 1) {
+            if (GS.getArray().get(i).isAlive()) {
+                alive += 1;
+            }
+        }
+        names = new String[alive];
+        //Then adds those players to the game
+        for (int i = 0; i < GS.getArray().size(); i += 1) {
+            if (GS.getArray().get(i).isAlive()) {
+                names[i] = new String(GS.getArray().get(i).getName());
+            } else {
+                //This removes the dead people from the list adapter
+                ArrayAdapter<String> adapter = (ArrayAdapter) playerList.getAdapter();
+                adapter.remove(names[i]);
+            }
+        }
+    }
+
+
+    private Person findVictim(int position, GameState GS)
+    {
+            //We will find the person that was clicked on by finding their name and comparing it to the
+            //names of the person objects
+        Person p = null;
+        for(int i = 0; i < GS.getArray().size(); i += 1)
+            {
+                 if (names[position].equals(GS.getArray().get(i).getName()))
+                 {
+                    return GS.getArray().get(i);
+                 }
+            }
+        return p;
     }
 
     //At the beginning of each new round, this method will be called to kill a player

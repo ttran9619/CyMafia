@@ -9,9 +9,9 @@ import android.widget.Toast;
 public class Detective extends Person {
 
     //Creates a new Detective
-    public Detective(String id, String name)
+    public Detective(String id, String name, GameState GS)
     {
-        super(id, name);
+        super(id, name, GS);
     }
 
     //This returns the Role of the player
@@ -24,7 +24,7 @@ public class Detective extends Person {
     public void doJob(Context context, Person person)
     {
         //creates a new toast notifying the person if he is a mafioso or a citizen
-        if(gs.timeDayNight)
+        if(GS.timeDayNight)
         {
             //If it is day, their job is to vote for a person
             person.vote();

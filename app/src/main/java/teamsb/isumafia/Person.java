@@ -16,10 +16,11 @@ public abstract class Person implements Serializable {
     private boolean marked;
     private boolean saved;
     private int vote;
-    protected GameState gs = null;
+    protected GameState GS;
 
-    protected Person(String id, String name) // Probably pass a player's ID and Google name to it
+    protected Person(String id, String name, GameState GS) // Probably pass a player's ID and Google name to it
     {
+        this.GS = GS;
         this.id = new String(id);
         this.name = new String(name);
         won = false;

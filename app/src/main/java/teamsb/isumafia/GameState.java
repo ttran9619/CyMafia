@@ -65,22 +65,22 @@ public class GameState implements  Serializable{
                 if(r == 0 && randomInts[0] < 1)
                 {
                     randomInts[0] += 1;
-                    People.set(i,new Mafia(ids[i], playerNames[i]));
+                    People.set(i,new Mafia(ids[i], playerNames[i], this));
                 }
                 else if(r == 1 && randomInts[1] < 1)
                 {
                     randomInts[1] += 1;
-                    People.set(i,new Nurse(ids[i], playerNames[i]));
+                    People.set(i,new Nurse(ids[i], playerNames[i], this));
                 }
                 else if(r == 2 && randomInts[2] < 1)
                 {
                     randomInts[2] += 1;
-                    People.set(i,new Detective(ids[i], playerNames[i]));
+                    People.set(i,new Detective(ids[i], playerNames[i], this));
                 }
                 else if(r == 3 && randomInts[3] < (n - 3))
                 {
                     randomInts[3] += 1;
-                    People.set(i,new Citizen(ids[i], playerNames[i]));
+                    People.set(i,new Citizen(ids[i], playerNames[i], this));
                 }
             }
         }

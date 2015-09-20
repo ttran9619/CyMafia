@@ -9,9 +9,9 @@ import android.widget.Toast;
 public class Citizen extends Person{
 
     //Creates a new player
-    public Citizen(String id, String name)
+    public Citizen(String id, String name, GameState GS)
     {
-        super(id,name);
+        super(id,name, GS);
     }
 
     // Returns the role of the player
@@ -23,7 +23,7 @@ public class Citizen extends Person{
     //This is the job of the citizen
     public void doJob(Context context, Person person)
     {
-        if(gs.timeDayNight)
+        if(GS.timeDayNight)
         {
             person.vote();
             int duration = Toast.LENGTH_LONG;
