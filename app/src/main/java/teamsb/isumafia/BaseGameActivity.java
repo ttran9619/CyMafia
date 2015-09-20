@@ -16,6 +16,7 @@
 
 package teamsb.isumafia;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,7 +42,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
  *
  * @author Bruno Oliveira (Google)
  */
-public abstract class BaseGameActivity extends ListActivity implements
+public abstract class BaseGameActivity extends Activity implements
         GameHelper.GameHelperListener {
 
     // The game helper object. This class is mainly a wrapper around this object.

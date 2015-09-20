@@ -39,7 +39,7 @@ public class MatchInitiatedCallback implements ResultCallback<TurnBasedMultiplay
         }
 
         // Otherwise, this is the first player. Initialize the game state.
-        TitleScreen.initGame(match);
+//        TitleScreen.initGame(match);
 
         // Let the player take the first turn
 //        startFirstTurn(match, data);
