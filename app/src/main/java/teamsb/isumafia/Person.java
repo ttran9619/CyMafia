@@ -26,7 +26,7 @@ public abstract class Person implements Serializable {
         alive = true;
         marked = false;
         saved = false;
-        //TODO
+
     }
 
     protected Person(Person old){

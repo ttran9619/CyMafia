@@ -20,7 +20,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
-public class DaytimeActivity extends AppCompatActivity {
+public class DaytimeActivity extends BaseGameActivity {
 
     Button btnBack;
 
@@ -29,7 +29,7 @@ public class DaytimeActivity extends AppCompatActivity {
 
     //TEMP
     String[] names;
-    Person[] people = null;
+    //Person[] people = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,12 @@ public class DaytimeActivity extends AppCompatActivity {
         GameState GS = (GameState) intentStarted.getSerializableExtra("PassedGameState");
 
         //TESTING
-        names = new String[]{"Mark","Luke","John"};
+        //names = new String[]{"Mark","Luke","John"};
+        names = new String[GS.getArray().size()];
+        for(int i = 0; i < GS.getArray().size(); i += 1)
+        {
+            names[i] = new String(GS.getArray().get(i).getName());
+        }
 
 
         // Creating the list and the list adapter
@@ -59,7 +64,7 @@ public class DaytimeActivity extends AppCompatActivity {
         playerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                //Position will be the same as the index of the name in the name list
                 // TO BE Modified
 
                 // ListView Clicked item index
@@ -67,6 +72,8 @@ public class DaytimeActivity extends AppCompatActivity {
 
                 // ListView Clicked item value
                 String  itemValue    = (String)  playerList.getItemAtPosition(position);
+
+                //getCurrentPlayerId(client)
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
@@ -88,8 +95,31 @@ public class DaytimeActivity extends AppCompatActivity {
 
     }
 
+    //This goes through the name array and checks that each player is still alive and removes them
+    //from the name array  if they are dead
+    private void cleanNames(GameState GS)
+    {
+        names = null;
+        //Counts the number of players left in the game
+        int alive = 0;
+        for(int i = 0; i < GS.getArray().size(); i += 1)
+        {
+            if(GS.getArray().get(i).isAlive())
+            {
+                alive += 1;
+            }
+        }
+        names = new String[alive];
+        //Then adds those players to the game
+        for(int i = 0; i < GS.getArray().size(); i += 1)
+        {
+            names[i] = new String(GS.getArray().get(i).getName());
+        }
+    }
+
+
     //At the beginning of each new round, this method will be called to kill a player
-    private void killPerson()
+    private void killPerson(GameState GS)
     {
         //These two objects allow us to locate who the nurse wants to save, and who the mafia wants
         //to kill
@@ -97,30 +127,30 @@ public class DaytimeActivity extends AppCompatActivity {
         Person wantToKill = null;
         int maxVote = 0;
         Person popular = null;
-        for(int i = 0; i < people.length; i += 1)
+        for(int i = 0; i < GS.getArray().size(); i += 1)
         {
 
             //After we find the two people, we will unsave/unmark them so they are not
-            if(people[i].getSaved())
+            if(GS.getArray().get(i).getSaved())
             {
-                wantToProtect = people[i];
-                people[i].unSave();
+                wantToProtect = GS.getArray().get(i);
+                GS.getArray().get(i).unSave();
             }
-            if(people[i].getMarked())
+            if(GS.getArray().get(i).getMarked())
             {
-                wantToKill = people[i];
-                people[i].unMark();
+                wantToKill = GS.getArray().get(i);
+                GS.getArray().get(i).unMark();
             }
-            if (people[i].getVote() > maxVote)
+            if (GS.getArray().get(i).getVote() > maxVote)
             {
-                maxVote = people[i].getVote();
-                popular = people[i];
+                maxVote = GS.getArray().get(i).getVote();
+                popular = GS.getArray().get(i);
             }
-            if(people[i].getVote() == maxVote)
+            if(GS.getArray().get(i).getVote() == maxVote)
             {
                 popular = null;
             }
-            people[i].voteReset();
+            GS.getArray().get(i).voteReset();
         }
         int duration = Toast.LENGTH_LONG;
         String text;
@@ -193,6 +223,13 @@ public class DaytimeActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onSignInFailed() {
 
+    }
 
+    @Override
+    public void onSignInSucceeded() {
+
+    }
 }
