@@ -192,10 +192,6 @@ public class TitleScreen extends BaseGameActivity {
                     .createMatch(getApiClient(), tbmc)
                     .setResultCallback(new MatchInitiatedCallback());
         }
-        else
-        {
-
-        }
     }
 
     @Override
