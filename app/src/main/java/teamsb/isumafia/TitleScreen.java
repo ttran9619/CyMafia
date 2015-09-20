@@ -3,7 +3,7 @@ package teamsb.isumafia;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,8 +12,6 @@ import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
-import com.google.android.gms.games.multiplayer.Multiplayer;
-import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatchConfig;
 
@@ -32,6 +30,13 @@ public class TitleScreen extends BaseGameActivity {
     public static ArrayList<String> peeps = new ArrayList<String>();
     public static byte[] bytes = null;
     public static GameState gameState;
+
+
+
+
+
+    // Used for onStop/Start
+    private static final String TAG = TitleScreen.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,6 +197,20 @@ public class TitleScreen extends BaseGameActivity {
             Games.TurnBasedMultiplayer
                     .createMatch(getApiClient(), tbmc)
                     .setResultCallback(new MatchInitiatedCallback());
+        }
+    }
+
+    protected void onStart() {
+        Log.d(TAG, "onStart()");
+        super.onStart();
+        getApiClient().connect();
+    }
+
+    protected void onStop() {
+        Log.d(TAG, "onStop()");
+        super.onStop();
+        if (getApiClient().isConnected()) {
+            getApiClient().disconnect();
         }
     }
 
