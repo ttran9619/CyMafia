@@ -1,6 +1,7 @@
 package teamsb.isumafia;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import java.io.Serializable;
 
@@ -48,7 +49,7 @@ public abstract class Person implements Serializable {
     }
 
     //Each role will have a different job and needs a person object to protect or mark
-    public abstract void doJob(Context context, Person person);
+    public abstract Toast doJob(Context context, Person person);
 
     //This will take care of putting the character out of the game.
     public void kill()

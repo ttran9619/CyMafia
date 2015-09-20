@@ -21,22 +21,24 @@ public class Citizen extends Person{
     }
 
     //This is the job of the citizen
-    public void doJob(Context context, Person person)
+    public Toast doJob(Context context, Person person)
     {
+
+        Toast toast = null;
         if(GS.timeDayNight && isAlive())
         {
             person.vote();
             int duration = Toast.LENGTH_LONG;
             String text = "You have voted to kill " + person.getName();
-            Toast toast = Toast.makeText(context, text, duration);
+            toast = Toast.makeText(context, text, duration);
         }
         else
         {
             int duration = Toast.LENGTH_LONG;
             //We will create a toast so they know it worked
-            Toast toast = Toast.makeText(context, "Thank you for choosing a player", duration);
-            toast.show();
-        }
+            toast = Toast.makeText(context, "Thank you for choosing a player", duration);
 
+        }
+        return toast;
     }
 }

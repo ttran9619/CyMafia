@@ -21,8 +21,9 @@ public class Detective extends Person {
     }
 
     //Performs the job of the detective and checks if it is a mafioso
-    public void doJob(Context context, Person person)
+    public Toast doJob(Context context, Person person)
     {
+        Toast toast;
         //creates a new toast notifying the person if he is a mafioso or a citizen
         if(GS.timeDayNight && isAlive())
         {
@@ -30,7 +31,7 @@ public class Detective extends Person {
             person.vote();
             int duration = Toast.LENGTH_LONG;
             String text = "You have voted to kill " + person.getName();
-            Toast toast = Toast.makeText(context, text, duration);
+            toast = Toast.makeText(context, text, duration);
         }
         else if(!GS.timeDayNight && isAlive())
         {
@@ -41,14 +42,15 @@ public class Detective extends Person {
                 text += "citizen";
             }
             int duration = Toast.LENGTH_LONG;
-            Toast toast = Toast.makeText(context, text, duration);
+            toast = Toast.makeText(context, text, duration);
         }
         else
         {
             int duration = Toast.LENGTH_LONG;
             String text = "Thank you for passing turn";
-            Toast toast = Toast.makeText(context, text, duration);
+            toast = Toast.makeText(context, text, duration);
         }
+        return toast;
     }
 
 }
