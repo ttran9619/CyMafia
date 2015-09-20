@@ -1,7 +1,6 @@
 package teamsb.isumafia;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,10 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class GameOverPage extends AppCompatActivity {
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
+
+public class GameOverPage extends BaseGameActivity {
 
     Button btnBack;
     TextView textGameOverState;
+    Person currentPerson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +28,44 @@ public class GameOverPage extends AppCompatActivity {
 
         btnBack = (Button) findViewById(R.id.buttonGameOverBack);
 
+        GoogleApiClient googleApiClient = getApiClient();
+        //Returns the current player
+        String currentPlayer = Games.Players.getCurrentPlayerId(googleApiClient);
+
+        currentPerson = null;
+        //then we will find the person object that represents the current player
+        for(int i = 0; i < GS.getArray().size(); i += 1)
+        {
+            if (currentPlayer.equals(GS.getArray().get(i).getID()))
+            {
+                currentPerson = GS.getArray().get(i);
+            }
+        }
+
+
+
 
         textGameOverState = (TextView) findViewById(R.id.textGameOverState);
 
         if(GS.mafiaWin==true){
             textGameOverState.setText(getString(R.string.mafia_win));
+
+            if(currentPerson.who()==Role.MAFIA){
+
+                Games.Achievements.increment(getApiClient(), "CgkIxP26lfwBEAIQAw", 1);
+            }
         }else if(GS.citizenWin==true){
             textGameOverState.setText(getString(R.string.citizen_win));
+
+            if(currentPerson.who()!=Role.MAFIA){
+
+                Games.Achievements.increment(getApiClient(), "CgkIxP26lfwBEAIQAw", 1);
+            }
+        }
+
+
+        if(currentPerson.isAlive()){
+            Games.Achievements.unlock(getApiClient(), "CgkIxP26lfwBEAIQBQ");
         }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -65,5 +99,20 @@ public class GameOverPage extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+
+
+    @Override
+    public void onSignInFailed() {
+
+    }
+
+    @Override
+    public void onSignInSucceeded() {
+
     }
 }
