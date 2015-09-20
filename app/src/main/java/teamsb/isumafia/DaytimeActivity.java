@@ -41,11 +41,11 @@ public class DaytimeActivity extends BaseGameActivity {
         setContentView(R.layout.activity_daytime);
 
 //        GoogleApiClient googleApiClient = getApiClient();
-//        Games.Players.getCurrentPlayerId(googleApiClient);
+//        String currentPlayer = Games.Players.getCurrentPlayerId(googleApiClient);
 
         //Passed in the GameState from the Title Screen
         Intent intentStarted = getIntent();
-        GameState GS = (GameState) intentStarted.getSerializableExtra("PassedGameState");
+        final GameState GS = (GameState) intentStarted.getSerializableExtra("PassedGameState");
 
         //TESTING
         //names = new String[]{"Mark","Luke","John"};
@@ -72,20 +72,35 @@ public class DaytimeActivity extends BaseGameActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                // TO BE Modified
+                //makes sure we are only dealing with living people
+                cleanNames(GS);
+                GoogleApiClient googleApiClient = getApiClient();
+                //Returns the current player
+                String currentPlayer = Games.Players.getCurrentPlayerId(googleApiClient);
 
-                // ListView Clicked item index
-                int itemPosition     = position;
+                Person currentPerson = null;
+                //then we will find the person object that represents the current player
+                for(int i = 0; i < GS.getArray().size(); i += 1)
+                {
+                    if (GS.getArray().get(i).isAlive() && currentPlayer.equals(GS.getArray().get(i).getID()))
+                    {
+                        currentPerson = GS.getArray().get(i);
+                    }
+                }
 
-                // ListView Clicked item value
-                String  itemValue    = (String)  playerList.getItemAtPosition(position);
+                Person victim = null;
+                //Now find the victim using a similar method of names[position]
+                for(int i = 0; i < GS.getArray().size(); i += 1)
+                {
+                    if(GS.getArray().get(i).isAlive() && names[position].equals(GS.getArray().get(i).getName()))
+                    {
+                        victim = GS.getArray().get(i);
+                    }
+                }
+                //Doing the Job
+                currentPerson.doJob(getApplicationContext(),victim);
 
-                //GoogleApiClient.getCurrentPlayerId(client);
 
-                // Show Alert
-                Toast.makeText(getApplicationContext(),
-                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
-                        .show();
             }
 
         });
