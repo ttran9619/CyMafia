@@ -13,9 +13,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.Player;
 import com.google.android.gms.games.internal.constants.TurnBasedMatchTurnStatus;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
+import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMultiplayer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -28,9 +31,11 @@ import java.io.ObjectOutputStream;
 public class DaytimeActivity extends BaseGameActivity {
 
     Button btnBack;
-
+//    TurnBasedMatch turnBasedMatch = null;
 
     ListView playerList;
+    GameState GS = null;
+    public static byte[] gsToArray = null;
 
     //TEMP
     String[] names;
@@ -41,13 +46,15 @@ public class DaytimeActivity extends BaseGameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daytime);
 
+//        turnBasedMatch = TitleScreen.match;
+
 //        GoogleApiClient googleApiClient = getApiClient();
 //        String currentPlayer = Games.Players.getCurrentPlayerId(googleApiClient);
 
 
         //Passed in the GameState from the Title Screen
         Intent intentStarted = getIntent();
-        final GameState GS = (GameState) intentStarted.getSerializableExtra("PassedGameState");
+        GS = (GameState) intentStarted.getSerializableExtra("PassedGameState");
 
         //TESTING
         //names = new String[]{"Mark","Luke","John"};
@@ -74,17 +81,37 @@ public class DaytimeActivity extends BaseGameActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                byte[] data = null;
+                if (global.match.getData() == null)
+                {
+                    GS = TitleScreen.gameState;
+                }
+                else
+                {
+                    data = global.match.getData();
+                    try {
+                        GS = (GameState) convertFromBytes(data);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
                 //makes sure we are only dealing with living people
                 cleanNames(GS);
                 GoogleApiClient googleApiClient = getApiClient();
                 //Returns the current player
-                String currentPlayer = Games.Players.getCurrentPlayerId(googleApiClient);
+                Player p = Games.Players.getCurrentPlayer(googleApiClient);
+                String currentPlayer = p.getDisplayName();
+//                        Games.Players.getCurrentPlayerId(googleApiClient);
 
                 Person currentPerson = null;
                 //then we will find the person object that represents the current player
                 for(int i = 0; i < GS.getArray().size(); i += 1)
                 {
-                    if (GS.getArray().get(i).isAlive() && currentPlayer.equals(GS.getArray().get(i).getID()))
+                    if (GS.getArray().get(i).isAlive() && currentPlayer.equals(GS.getArray().get(i).getName()))
                     {
                         currentPerson = GS.getArray().get(i);
                     }
@@ -105,6 +132,9 @@ public class DaytimeActivity extends BaseGameActivity {
                 {
                     toast.show();
                 }
+                currentPerson.doJob(getApplicationContext(), victim);
+
+                String nextParticipantId = getNextParticipantId(currentPerson);
 
             }
 
@@ -121,6 +151,25 @@ public class DaytimeActivity extends BaseGameActivity {
         });
 
 
+    }
+
+    private String getNextParticipantId(Person current)
+    {
+        String tempID = current.getID();
+        int num = Integer.parseInt(tempID.substring(2));
+        String sub = tempID.substring(0, 2);
+        int newNum = (num + 1) % GS.People.size();
+        while(!GS.People.get(newNum - 1).isAlive())
+        {
+            newNum += 1;
+            if (newNum > GS.People.size())
+            {
+                newNum %= GS.People.size();
+                killPerson(GS);
+            }
+        }
+        String idToReturn = sub + newNum;
+        return idToReturn;
     }
 
     //Makes sure that the names are only the alive members
@@ -225,6 +274,7 @@ public class DaytimeActivity extends BaseGameActivity {
         {
             text = "No one died";
             toast = Toast.makeText(getApplicationContext(), text, duration);
+            toast.show();
         }
         cleanNames(GS);
         if(names.length <= 2 && !GS.citizenWin)

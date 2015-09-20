@@ -30,16 +30,16 @@ public class MatchInitiatedCallback implements ResultCallback<TurnBasedMultiplay
             return;
         }
 
-        TurnBasedMatch match = initiateMatchResult.getMatch();
+        global.match = initiateMatchResult.getMatch();
 
         // If this player is not the first player in this match, continue.
-        if (match.getData() != null) {
+        if (global.match.getData() != null) {
 //            showTurnUI(match);
             return;
         }
 
         // Otherwise, this is the first player. Initialize the game state.
-        TitleScreen.initGame(match);
+        TitleScreen.initGame(global.match);
 
         // Let the player take the first turn
 //        startFirstTurn(match, data);
