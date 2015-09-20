@@ -28,10 +28,8 @@ public class DaytimeActivity extends BaseGameActivity {
 
 
     ListView playerList;
-
-    //TEMP
+    
     String[] names;
-    //Person[] people = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

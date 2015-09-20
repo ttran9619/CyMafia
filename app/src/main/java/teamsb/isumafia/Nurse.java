@@ -46,6 +46,7 @@ public class Nurse extends Person{
         {
             person.save();
 
+
             //A person will be protected, then the toast will confirm that the mafia member is done
             int duration = Toast.LENGTH_LONG;
             String text = "You have marked " + person.getName() + "for death";
