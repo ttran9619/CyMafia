@@ -2,6 +2,7 @@ package teamsb.isumafia;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -26,7 +27,7 @@ public class GameState implements  Serializable{
 
 
     public GameState(){
-        ArrayList<Person> People = new ArrayList<Person>();
+        People = new ArrayList<Person>();
         timeDayNight = false;
         mafiaWin = false;
         citizenWin = false;
@@ -41,7 +42,7 @@ public class GameState implements  Serializable{
 
         int i=0;
         for(Person peep : old.People){
-            this.People.set(i,old.People.get(i));
+            this.People.add(i, old.People.get(i));
             ++i;
         }
     }
@@ -54,48 +55,50 @@ public class GameState implements  Serializable{
         Random rand = new Random();
         //This array ensures that the number roles are distributed correctly
         int[] randomInts = new int[4];
+
+//        ArrayList<Role> roles = new ArrayList<Role>();
+
+
         for(int i = 0; i < n; i += 1)
         {
             //This will ensure that the correct number of citizens/mafia/nurse/detectives are chosen
             //then populates the people array
-            while(People.get(i) == null)
+//            Collections.shuffle(People);
+            boolean found = false;
+            while(!found)
             {
                 int r = rand.nextInt(3);
                 //There can only be one mafia
                 if(r == 0 && randomInts[0] < 1)
                 {
                     randomInts[0] += 1;
-                    People.set(i,new Mafia(ids[i], playerNames[i], this));
+                    People.add(i, new Mafia(ids[i], playerNames[i], this));
+                    found = true;
                 }
                 else if(r == 1 && randomInts[1] < 1)
                 {
                     randomInts[1] += 1;
-                    People.set(i,new Nurse(ids[i], playerNames[i], this));
+                    People.add(i, new Nurse(ids[i], playerNames[i], this));
+                    found = true;
                 }
                 else if(r == 2 && randomInts[2] < 1)
                 {
                     randomInts[2] += 1;
-                    People.set(i,new Detective(ids[i], playerNames[i], this));
+                    People.add(i, new Detective(ids[i], playerNames[i], this));
+                    found = true;
                 }
                 else if(r == 3 && randomInts[3] < (n - 3))
                 {
                     randomInts[3] += 1;
-                    People.set(i,new Citizen(ids[i], playerNames[i], this));
+                    People.add(i, new Citizen(ids[i], playerNames[i], this));
+                    found = true;
                 }
             }
         }
     }
 
-
     public ArrayList<Person> getArray(){
         return People;
     }
-
-
-
-
-
-
-
 
 }

@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -20,7 +22,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 
-public class DaytimeActivity extends AppCompatActivity {
+public class DaytimeActivity extends BaseGameActivity {
 
     Button btnBack;
 
@@ -35,6 +37,8 @@ public class DaytimeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daytime);
+
+
 
         //Passed in the GameState from the Title Screen
         Intent intentStarted = getIntent();
@@ -240,6 +244,13 @@ public class DaytimeActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onSignInFailed() {
 
+    }
 
+    @Override
+    public void onSignInSucceeded() {
+
+    }
 }
