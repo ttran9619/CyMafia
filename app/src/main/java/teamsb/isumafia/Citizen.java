@@ -9,9 +9,9 @@ import android.widget.Toast;
 public class Citizen extends Person{
 
     //Creates a new player
-    public Citizen(String name)
+    public Citizen(String id, String name)
     {
-        super(name);
+        super(id,name);
     }
 
     // Returns the role of the player
