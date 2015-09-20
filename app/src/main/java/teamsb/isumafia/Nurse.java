@@ -26,17 +26,25 @@ public class Nurse extends Person{
         //Assuming that day will be the variable
         if(gs.timeDayNight)
         {
-            //If it is day, their job is to vote for a person
-            person.vote();
+            //Their vote only counts if they are alive
             int duration = Toast.LENGTH_LONG;
-            String text = "You have voted to kill " + person.getName();
+            String text;
+            if(isAlive())
+            {
+                //If it is day, their job is to vote for a person
+                person.vote();
+                duration = Toast.LENGTH_LONG;
+                text = "You have voted to kill " + person.getName();
+            }else
+            {
+               text = "Thank you for passing your turn";
+            }
             Toast toast = Toast.makeText(context, text, duration);
 
         }
         else
         {
             person.save();
-            //TODO
 
             //A person will be protected, then the toast will confirm that the mafia member is done
             int duration = Toast.LENGTH_LONG;
