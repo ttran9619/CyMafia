@@ -21,17 +21,19 @@
             android:layout_gravity="center_horizontal|top"
             android:textSize="25dp" />
 
-        <ExpandableListView
-            android:layout_width="wrap_content"
-            android:layout_height="370dp"
-            android:id="@+id/expandableListView3"
-            android:layout_gravity="center" />
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TEMP Back"
             android:id="@+id/buttonDaytimeBack"
             android:layout_gravity="left|bottom" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="446dp"
+            android:id="@+id/listViewDaytime"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:choiceMode="singleChoice" />
     </FrameLayout>
 </RelativeLayout>

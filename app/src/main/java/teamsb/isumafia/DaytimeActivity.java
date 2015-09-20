@@ -1,12 +1,15 @@
 package teamsb.isumafia;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.ByteArrayInputStream;
@@ -20,6 +23,12 @@ import java.io.ObjectOutputStream;
 public class DaytimeActivity extends AppCompatActivity {
 
     Button btnBack;
+
+
+    ListView playerList;
+
+    //TEMP
+    String[] names;
     Person[] people = null;
 
     @Override
@@ -31,9 +40,41 @@ public class DaytimeActivity extends AppCompatActivity {
         Intent intentStarted = getIntent();
         GameState GS = (GameState) intentStarted.getSerializableExtra("PassedGameState");
 
+        //TESTING
+        names = new String[]{"Mark","Luke","John"};
 
 
+        // Creating the list and the list adapter
+        playerList = (ListView) findViewById(R.id.listViewDaytime);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, android.R.id.text1, names);
+        playerList.setAdapter(adapter);
+
+        // Button for returning to the start
         btnBack = (Button) findViewById(R.id.buttonDaytimeBack);
+
+
+
+
+        // ListView Item Click Listener
+        playerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                // TO BE Modified
+
+                // ListView Clicked item index
+                int itemPosition     = position;
+
+                // ListView Clicked item value
+                String  itemValue    = (String)  playerList.getItemAtPosition(position);
+
+                // Show Alert
+                Toast.makeText(getApplicationContext(),
+                        "Position :"+itemPosition+"  ListItem : " +itemValue , Toast.LENGTH_LONG)
+                        .show();
+            }
+
+        });
 
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -150,4 +191,8 @@ public class DaytimeActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 }
