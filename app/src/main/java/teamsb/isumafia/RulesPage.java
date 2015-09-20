@@ -18,7 +18,7 @@ public class RulesPage extends BaseGameActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rules_page);
 
-        Games.Achievements.unlockImmediate(getApiClient(), "CgkIxP26lfwBEAIQAQ");
+//        Games.Achievements.unlockImmediate(getApiClient(), "CgkIxP26lfwBEAIQAQ");
 
         btnBack = (Button) findViewById(R.id.buttonRulesBack);
 

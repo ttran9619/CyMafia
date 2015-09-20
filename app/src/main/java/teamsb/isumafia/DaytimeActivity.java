@@ -2,7 +2,6 @@ package teamsb.isumafia;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,10 +14,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.Player;
-import com.google.android.gms.games.internal.constants.TurnBasedMatchTurnStatus;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMultiplayer;
 
@@ -152,17 +149,25 @@ public class DaytimeActivity extends BaseGameActivity {
                 Log.v("Current player's id: ", currentPerson.getID());
                 Log.v("Next player's id: ", nextParticipantId);
 
-                Games.TurnBasedMultiplayer.takeTurn(getApiClient(), global.match.getMatchId(), data, "p_2")
-                        .setResultCallback(new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>()
-                        {
-                            @Override
-                            public void onResult(TurnBasedMultiplayer.UpdateMatchResult result)
-                            {
+                if (nextParticipantId.equals("p_4"))
+                {
+                    Games.TurnBasedMultiplayer.finishMatch(getApiClient(), global.match.getMatchId());
+                    Intent intent = new Intent(getApplicationContext(), GameOverPage.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Games.TurnBasedMultiplayer.takeTurn(getApiClient(), global.match.getMatchId(), data, nextParticipantId)
+                            .setResultCallback(new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>() {
+                                @Override
+                                public void onResult(TurnBasedMultiplayer.UpdateMatchResult result) {
 
-                            }
-                        });
+                                }
+                            });
+                }
 
-                btnBack.setText((global.match.getTurnStatus() == TurnBasedMatch.MATCH_TURN_STATUS_MY_TURN) + "");
+
+//                btnBack.setText((global.match.getTurnStatus() == TurnBasedMatch.MATCH_TURN_STATUS_MY_TURN) + "");
             }
 
         });
@@ -180,16 +185,21 @@ public class DaytimeActivity extends BaseGameActivity {
         String tempID = current.getID();
         int num = Integer.parseInt(tempID.substring(2));
         String sub = tempID.substring(0, 2);
-        int newNum = (num + 1) % GS.People.size();
-        while(!GS.People.get(newNum - 1).isAlive())
+        int newNum = (num + 1);
+        if (newNum == 4)
         {
-            newNum += 1;
-            if (newNum > GS.People.size())
-            {
-                newNum %= GS.People.size();
-                killPerson(GS);
-            }
+            global.lasterPerson = true;
         }
+
+//        while(newNum != 0 && !GS.People.get(newNum - 1).isAlive())
+//        {
+//            newNum += 1;
+//            if (newNum > GS.People.size())
+//            {
+//                newNum %= GS.People.size();
+//                killPerson(GS);
+//            }
+//        }
         String idToReturn = sub + newNum;
         return idToReturn;
     }
@@ -242,30 +252,30 @@ public class DaytimeActivity extends BaseGameActivity {
         Person wantToKill = null;
         int maxVote = 0;
         Person popular = null;
-        for(int i = 0; i < people.length; i += 1)
+        for(int i = 0; i < GS.People.size(); i += 1)
         {
 
             //After we find the two people, we will unsave/unmark them so they are not
-            if(people[i].getSaved())
+            if(GS.People.get(i).getSaved())
             {
-                wantToProtect = people[i];
-                people[i].unSave();
+                wantToProtect = GS.People.get(i);
+                GS.People.get(i).unSave();
             }
-            if(people[i].getMarked())
+            if(GS.People.get(i).getMarked())
             {
-                wantToKill = people[i];
-                people[i].unMark();
+                wantToKill = GS.People.get(i);
+                GS.People.get(i).unMark();
             }
-            if (people[i].getVote() > maxVote)
+            if (GS.People.get(i).getVote() > maxVote)
             {
-                maxVote = people[i].getVote();
-                popular = people[i];
+                maxVote = GS.People.get(i).getVote();
+                popular = GS.People.get(i);
             }
-            if(people[i].getVote() == maxVote)
+            if(GS.People.get(i).getVote() == maxVote)
             {
                 popular = null;
             }
-            people[i].voteReset();
+            GS.People.get(i).voteReset();
         }
         int duration = Toast.LENGTH_LONG;
         String text;
@@ -311,7 +321,7 @@ public class DaytimeActivity extends BaseGameActivity {
     {
         if(GS.mafiaWin || GS.citizenWin)
         {
-            Intent intent = new Intent(getApplicationContext(), DaytimeActivity.class);
+            Intent intent = new Intent(getApplicationContext(), GameOverPage.class);
             intent.putExtra("PassedGameState", GS);
             startActivity(intent);
         }

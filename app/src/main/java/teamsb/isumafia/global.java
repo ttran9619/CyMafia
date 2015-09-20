@@ -21,6 +21,8 @@ public class global {
 
     public static byte[] data;
 
+    public static boolean lasterPerson;
+
 
 
 }

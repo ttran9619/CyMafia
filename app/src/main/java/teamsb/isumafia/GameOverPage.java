@@ -52,20 +52,20 @@ public class GameOverPage extends BaseGameActivity {
 
             if(currentPerson.who()==Role.MAFIA){
 
-                Games.Achievements.increment(getApiClient(), "CgkIxP26lfwBEAIQAw", 1);
+//                Games.Achievements.increment(getApiClient(), "CgkIxP26lfwBEAIQAw", 1);
             }
         }else if(GS.citizenWin==true){
             textGameOverState.setText(getString(R.string.citizen_win));
 
             if(currentPerson.who()!=Role.MAFIA){
 
-                Games.Achievements.increment(getApiClient(), "CgkIxP26lfwBEAIQAw", 1);
+//                Games.Achievements.increment(getApiClient(), "CgkIxP26lfwBEAIQAw", 1);
             }
         }
 
 
         if(currentPerson.isAlive()){
-            Games.Achievements.unlock(getApiClient(), "CgkIxP26lfwBEAIQBQ");
+//            Games.Achievements.unlock(getApiClient(), "CgkIxP26lfwBEAIQBQ");
         }
 
         btnBack.setOnClickListener(new View.OnClickListener() {
