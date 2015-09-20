@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -73,7 +75,7 @@ public class DaytimeActivity extends BaseGameActivity {
                 // ListView Clicked item value
                 String  itemValue    = (String)  playerList.getItemAtPosition(position);
 
-                //getCurrentPlayerId(client)
+                //GoogleApiClient.getCurrentPlayerId(client);
 
                 // Show Alert
                 Toast.makeText(getApplicationContext(),
@@ -94,6 +96,23 @@ public class DaytimeActivity extends BaseGameActivity {
 
 
     }
+
+    private Person findVictim(int position, GameState GS)
+    {
+        //We will find the person that was clicked on by finding their name and comparing it to the
+        //names of the person objects
+        Person p = null;
+        for(int i = 0; i < GS.getArray().size(); i += 1)
+        {
+            if (names[position].equals(GS.getArray().get(i).getName()))
+            {
+                return GS.getArray().get(i);
+            }
+        }
+        return p;
+    }
+
+
 
     //This goes through the name array and checks that each player is still alive and removes them
     //from the name array  if they are dead

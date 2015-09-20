@@ -9,9 +9,9 @@ import android.widget.Toast;
 public class Nurse extends Person{
 
     //Creates a new Nurse
-    public Nurse(String id, String name)
+    public Nurse(String id, String name, GameState GS)
     {
-        super(id, name);
+        super(id, name, GS);
     }
 
     //Returns the role of this person
@@ -24,7 +24,7 @@ public class Nurse extends Person{
     public void doJob(Context context,Person person)
     {
         //Assuming that day will be the variable
-        if(gs.timeDayNight)
+        if(GS.timeDayNight)
         {
             //Their vote only counts if they are alive
             int duration = Toast.LENGTH_LONG;
