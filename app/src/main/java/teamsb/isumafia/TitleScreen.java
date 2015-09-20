@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.multiplayer.Multiplayer;
 import com.google.android.gms.games.multiplayer.realtime.RoomConfig;
@@ -30,6 +31,7 @@ public class TitleScreen extends BaseGameActivity {
     Button btnHost, btnLogin, btnRules;
     public static ArrayList<String> peeps = new ArrayList<String>();
     public static byte[] bytes = null;
+    private static GameState gameState = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +56,7 @@ public class TitleScreen extends BaseGameActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), DaytimeActivity.class);
-                intent.putExtra("byteArr", bytes);
+                intent.putExtra("PassedGameState", gameState);
                 startActivity(intent);
             }
         });
@@ -72,6 +74,17 @@ public class TitleScreen extends BaseGameActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            GoogleApiClient mGoogle = getApiClient();
+            Intent intent = Games.TurnBasedMultiplayer.getSelectOpponentsIntent(mGoogle, 2, 7, true);
+            startActivityForResult(intent, 1);
+//                if (isSignedIn())
+//                {
+//                    signOut();
+//                }
+//                else
+//                {
+//                    beginUserInitiatedSignIn();
+//                }
                 //Intent intent = new Intent(v.getContext(), HostLobby.class);
                 // startActivity(intent);
             }
@@ -103,25 +116,25 @@ public class TitleScreen extends BaseGameActivity {
 
     public static void initGame(TurnBasedMatch match)
     {
-
-        GameState state = new GameState();
-
+        gameState = new GameState();
+        peeps = match.getParticipantIds();
         String ids[] = new String[peeps.size()];
         String names[] = new String[ids.length];
-        for(int i = 0; i < ids.length; i += 1)
+        int len = peeps.size();
+        for(int i = 0; i < len; i += 1)
         {
             ids[i] = peeps.get(i);
             names[i] = match.getParticipant(ids[i]).getDisplayName();
         }
-        state.populate(ids, names);
+        gameState.populate(ids, names);
 
-        byte[] data = null;
-        try {
-            data = convertToBytes(state);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        bytes = data;
+//        byte[] data = null;
+//        try {
+//            data = convertToBytes(state);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        bytes = data;
     }
 
 
