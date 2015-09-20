@@ -9,9 +9,9 @@ import android.widget.Toast;
 public class Mafia extends Person {
 
     //Creates new mafia Person
-    public Mafia(String name)
+    public Mafia(String id, String name)
     {
-        super(name);
+        super(id,name);
     }
 
     //Returns the Role of this Person
@@ -26,6 +26,7 @@ public class Mafia extends Person {
         //TODO
         if(gs.timeDayNight)
         {
+            //during the day, everyone votes
             person.vote();
             int duration = Toast.LENGTH_LONG;
             String text = "You have voted to kill " + person.getName();

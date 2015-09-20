@@ -9,9 +9,9 @@ import android.widget.Toast;
 public class Nurse extends Person{
 
     //Creates a new Nurse
-    public Nurse(String name)
+    public Nurse(String id, String name)
     {
-        super(name);
+        super(id, name);
     }
 
     //Returns the role of this person

@@ -9,6 +9,7 @@ import java.io.Serializable;
  */
 public abstract class Person implements Serializable {
 
+    private String id;
     private boolean won;
     private boolean alive;
     private String name;
@@ -17,8 +18,9 @@ public abstract class Person implements Serializable {
     private int vote;
     protected GameState gs = null;
 
-    protected Person(String name) // Probably pass a player's ID and Google name to it
+    protected Person(String id, String name) // Probably pass a player's ID and Google name to it
     {
+        this.id = new String(id);
         this.name = new String(name);
         won = false;
         alive = true;
@@ -119,5 +121,12 @@ public abstract class Person implements Serializable {
     {
         vote = 0;
     }
+
+    //Returns the player id
+    public String getID()
+    {
+        return id;
+    }
+
 
 }
