@@ -100,8 +100,11 @@ public class DaytimeActivity extends BaseGameActivity {
                     }
                 }
                 //Doing the Job
-                currentPerson.doJob(getApplicationContext(),victim);
-
+                Toast toast = currentPerson.doJob(getApplicationContext(),victim);
+                if(toast != null)
+                {
+                    toast.show();
+                }
 
             }
 
