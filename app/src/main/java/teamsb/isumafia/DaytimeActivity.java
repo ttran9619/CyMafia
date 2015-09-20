@@ -113,8 +113,19 @@ public class DaytimeActivity extends BaseGameActivity {
         //Then adds those players to the game
         for(int i = 0; i < GS.getArray().size(); i += 1)
         {
-            names[i] = new String(GS.getArray().get(i).getName());
+            if(GS.getArray().get(i).isAlive())
+            {
+                names[i] = new String(GS.getArray().get(i).getName());
+            }
+            else
+            {
+                //This removes the dead people from the list adapter
+                ArrayAdapter<String> adapter= (ArrayAdapter) playerList.getAdapter();
+                adapter.remove( names[i]);
+            }
         }
+
+
     }
 
 
