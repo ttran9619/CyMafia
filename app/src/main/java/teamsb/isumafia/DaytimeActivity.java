@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.games.Games;
 import com.google.android.gms.games.Player;
@@ -127,7 +128,7 @@ public class DaytimeActivity extends BaseGameActivity {
                     }
                 }
                 //Doing the Job
-                Toast toast = currentPerson.doJob(getApplicationContext(),victim);
+                Toast toast = currentPerson.doJob(getApplicationContext(), victim);
                 if(toast != null)
                 {
                     toast.show();
@@ -136,12 +137,26 @@ public class DaytimeActivity extends BaseGameActivity {
 
                 String nextParticipantId = getNextParticipantId(currentPerson);
 
+                try {
+                    data = convertToBytes(GS);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Games.TurnBasedMultiplayer.takeTurn(getApiClient(), global.match.getMatchId(), data, nextParticipantId)
+                        .setResultCallback(new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>()
+                        {
+                            @Override
+                            public void onResult(TurnBasedMultiplayer.UpdateMatchResult result)
+                            {
+
+                            }
+                        });
+
+                btnBack.setText((global.match.getTurnStatus() == TurnBasedMatch.MATCH_TURN_STATUS_MY_TURN) + "");
             }
 
         });
-
-
-
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,8 +164,6 @@ public class DaytimeActivity extends BaseGameActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
     private String getNextParticipantId(Person current)

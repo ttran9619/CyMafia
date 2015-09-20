@@ -39,7 +39,7 @@ public class Mafia extends Person {
 
             //A person will be marked for death, then the toast will confirm that the mafia member is done
             int duration = Toast.LENGTH_LONG;
-            String text = "You have marked " + person.getName() + "for death";
+            String text = "You have marked " + person.getName() + " for death";
             toast = Toast.makeText(context, text, duration);
         }
         else
