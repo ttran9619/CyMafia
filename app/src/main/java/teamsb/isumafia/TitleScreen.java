@@ -12,8 +12,10 @@ import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.multiplayer.Multiplayer;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatch;
 import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMatchConfig;
+import com.google.android.gms.games.multiplayer.turnbased.TurnBasedMultiplayer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -26,14 +28,10 @@ import java.util.ArrayList;
 
 public class TitleScreen extends BaseGameActivity {
 
-    Button btnHost, btnLogin, btnRules;
+    Button btnHost, btnLogin, btnRules, btnInvite;
     public static ArrayList<String> peeps = new ArrayList<String>();
     public static byte[] bytes = null;
     public static GameState gameState;
-
-
-
-
 
     // Used for onStop/Start
     private static final String TAG = TitleScreen.class.getSimpleName();
@@ -53,6 +51,8 @@ public class TitleScreen extends BaseGameActivity {
         btnHost = (Button) findViewById(R.id.buttonStart);
         btnLogin = (Button) findViewById(R.id.buttonLogin);
         btnRules = (Button) findViewById(R.id.buttonRules);
+        btnInvite = (Button) findViewById(R.id.invite);
+
 
 
         // Button to the Host Lobby Screen
@@ -92,6 +92,14 @@ public class TitleScreen extends BaseGameActivity {
 //                }
                 //Intent intent = new Intent(v.getContext(), HostLobby.class);
                 // startActivity(intent);
+            }
+        });
+
+        btnInvite.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = Games.TurnBasedMultiplayer.getInboxIntent(getApiClient());
+                startActivityForResult(intent, 10001);
             }
         });
 
@@ -172,7 +180,7 @@ public class TitleScreen extends BaseGameActivity {
             }
 
             // Get the invitee list.
-            final ArrayList<String> invitees =
+            ArrayList<String> invitees =
                     data.getStringArrayListExtra(Games.EXTRA_PLAYER_IDS);
 
             // Get auto-match criteria.
@@ -188,6 +196,7 @@ public class TitleScreen extends BaseGameActivity {
 //                autoMatchCriteria = null;
 //            }
 
+
             TurnBasedMatchConfig tbmc = TurnBasedMatchConfig.builder()
                     .addInvitedPlayers(invitees)
                     .setAutoMatchCriteria(null)
@@ -198,19 +207,17 @@ public class TitleScreen extends BaseGameActivity {
                     .createMatch(getApiClient(), tbmc)
                     .setResultCallback(new MatchInitiatedCallback());
         }
-    }
-
-    protected void onStart() {
-        Log.d(TAG, "onStart()");
-        super.onStart();
-        getApiClient().connect();
-    }
-
-    protected void onStop() {
-        Log.d(TAG, "onStop()");
-        super.onStop();
-        if (getApiClient().isConnected()) {
-            getApiClient().disconnect();
+        else if (request == 10001)
+        {
+            TurnBasedMatch match = data.getParcelableExtra(Multiplayer.EXTRA_TURN_BASED_MATCH);
+            global.match = match;
+            try {
+                gameState = (GameState) convertFromBytes(global.match.getData());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 

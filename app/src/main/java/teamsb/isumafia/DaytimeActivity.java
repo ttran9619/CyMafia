@@ -3,6 +3,7 @@ package teamsb.isumafia;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,6 +83,11 @@ public class DaytimeActivity extends BaseGameActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                if (global.match.getStatus() != TurnBasedMatch.MATCH_STATUS_ACTIVE || global.match.getTurnStatus() != TurnBasedMatch.MATCH_TURN_STATUS_MY_TURN)
+                {
+                    return;
+                }
+
                 byte[] data = null;
                 if (global.match.getData() == null)
                 {
@@ -143,7 +149,10 @@ public class DaytimeActivity extends BaseGameActivity {
                     e.printStackTrace();
                 }
 
-                Games.TurnBasedMultiplayer.takeTurn(getApiClient(), global.match.getMatchId(), data, nextParticipantId)
+                Log.v("Current player's id: ", currentPerson.getID());
+                Log.v("Next player's id: ", nextParticipantId);
+
+                Games.TurnBasedMultiplayer.takeTurn(getApiClient(), global.match.getMatchId(), data, "p_2")
                         .setResultCallback(new ResultCallback<TurnBasedMultiplayer.UpdateMatchResult>()
                         {
                             @Override

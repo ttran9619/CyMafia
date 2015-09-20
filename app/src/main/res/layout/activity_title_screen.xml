@@ -49,6 +49,14 @@
                 android:text="@string/start_button"
                 android:id="@+id/buttonStart"
                 android:layout_alignTop="@+id/buttonLogin"
+                android:layout_alignStart="@+id/invite" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Invites"
+                android:id="@+id/invite"
+                android:layout_below="@+id/buttonStart"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
